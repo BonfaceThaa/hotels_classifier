@@ -15,5 +15,6 @@ The repo is structured as follows:
 ├── requirements.txt
 └── sent_classifier
     ├── data_scraping
+    │   └── trip_advisor_scraper.py
     └── __init__.py
 ```

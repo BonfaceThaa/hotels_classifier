@@ -6,17 +6,17 @@ scraper_headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
 }
 
-html = requests.get('https://www.tripadvisor.com/Hotels-g294206-Kenya-Hotels.html', headers=scraper_headers)
-hotels_soup = soup(html.content, features="html.parser")
-
-hotels = {}
-
-for hotel in hotels_soup.findAll('div', {'class': 'listItem'}):
-    hotel_title = hotel.find('a', 'property_title prominent')
-    hotel_link = 'https://www.tripadvisor.com' + hotel_title['href']
-    hotel_name = hotel_title.string.lstrip()
-    reviews_num = hotel.find('a', 'review_count').string
-    hotels[hotel_name] = [hotel_link, reviews_num]
+# html = requests.get('https://www.tripadvisor.com/Hotels-g294206-Kenya-Hotels.html', headers=scraper_headers)
+# hotels_soup = soup(html.content, features="html.parser")
+#
+# hotels = {}
+#
+# for hotel in hotels_soup.findAll('div', {'class': 'listItem'}):
+#     hotel_title = hotel.find('a', 'property_title prominent')
+#     hotel_link = 'https://www.tripadvisor.com' + hotel_title['href']
+#     hotel_name = hotel_title.string.lstrip()
+#     reviews_num = hotel.find('a', 'review_count').string
+#     hotels[hotel_name] = [hotel_link, reviews_num]
 
 # Test data
 hotel_reviews = {'Golden Tulip Westlands Nairobi': [
@@ -96,7 +96,10 @@ for k, v in hotel_reviews.items():
     tmp_hotel_link = hotel_link.split('Reviews')
     for i in reviews_pages:
         review_page_link = tmp_hotel_link[0] + 'Reviews-or' + str(i) + tmp_hotel_link[1] + '#REVIEWS'
-        print(review_page_link)
-
-
-
+        review_html = requests.get(review_page_link, headers=scraper_headers)
+        sleep(5)
+        hotel_reviews_soup = soup(review_html.content, features="html.parser")
+        for review in hotel_reviews_soup.findAll('div', {'class': '_2wrUUKlw _3hFEdNs8'}):
+            review_title = review.find('a', 'ocfR3SKN').string
+            review = review.find('q').string
+            review_date = review.find('span', '_34Xs-BQm').text[14:]

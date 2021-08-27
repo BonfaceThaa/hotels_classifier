@@ -9,12 +9,18 @@ The repo is structured as follows:
 
 ```bash
 ├── data
+│   ├── hotels_public_hotel.csv
+│   └── hotels_public_review.csv
 ├── LICENSE.txt
 ├── README.md
 ├── reports
 ├── requirements.txt
 └── sent_classifier
+    ├── database
+    │   ├── database.py
+    │   └── __init__.py
     ├── data_scraping
     │   └── trip_advisor_scraper.py
     └── __init__.py
+
 ```

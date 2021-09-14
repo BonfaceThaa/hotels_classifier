@@ -114,6 +114,8 @@ def create_review_table():
         HOTEL TEXT NOT NULL,
         REVIEW TEXT NOT NULL,
         DATE TEXT NOT NULL,
+        SENTIMENT TEXT,
+        SCORE NUMERIC (10,9)
         UNIQUE (REVIEW));
         '''
         cursor.execute(create_table_query)
@@ -145,8 +147,43 @@ def insert_review(title, hotel, review, date):
         print("Error: ", error)
 
 
+def get_reviews():
+    """
+    Function to fetch all reviews that have not been classified according to sentiment
+    """
+    try:
+        connection = create_connection()
+        cursor = connection.cursor()
+        get_query = '''SELECT id, review FROM review WHERE sentiment IS NULL'''
+        cursor.execute(get_query)
+        records = cursor.fetchall()
+        close_connection(connection)
+        return records
+    except (Exception, Error) as error:
+        print("Error: ", error)
+
+
+def update_review_sentiment(id, sentiment, score):
+    """
+    Function to update the sentiment of a hotel review
+    :param id: id of the review
+    :param sentiment: completed sentiment
+    """
+    try:
+        connection = create_connection()
+        cursor = connection.cursor()
+        update_query = '''UPDATE review SET sentiment = %s, score = %s WHERE id = %s'''
+        cursor.execute(update_query, (sentiment, score, id))
+        connection.commit()
+        print("Review sentiment updated successfully")
+        close_connection(connection)
+    except (Exception, psycopg2.Error) as error:
+        print("Error in update operation", error)
+
+
 if __name__ == '__main__':
     insert_hotel()
     get_hotels()
     insert_review()
     update_hotel_status()
+    update_review_sentiment()

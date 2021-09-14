@@ -4,3 +4,4 @@
 # DLLs, binary and modules
 __pycache__/
 .ipynb_checkpoints
+mallet-2.0.8

@@ -15,7 +15,7 @@ def get_sentiment_update(review):
     """
     Function for fetching sentiment of review from rapidAPI
     :param review: online hotel review
-    :return:
+    :return: list of sentiment and score of the review
     """
     response = requests.get(BASE_URL, headers=headers, params={'text': review})
     data = response.json()
@@ -31,6 +31,7 @@ reviews = get_reviews()
 for row in reviews:
     review_id = row[0]
     review = row[1]
+    # request for sentiment for the review
     sentiment_data = get_sentiment_update(review)
     sentiment = sentiment_data[0]
     score = sentiment_data[1]

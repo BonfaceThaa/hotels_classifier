@@ -8,19 +8,29 @@ Vector Machines (SVM).
 The repo is structured as follows:
 
 ```bash
+.
 ├── data
-│   ├── hotels_public_hotel.csv
-│   └── hotels_public_review.csv
+│   ├── hotel_reviews.csv
+│   └── kenya_hotels.csv
 ├── LICENSE.txt
+├── notebooks
+│   ├── hotel-reviews-topic-modeling-lda.ipynb
+│   └── hotels-reviews-exploratory-data-analysis.ipynb
 ├── README.md
 ├── reports
+│   ├── ldavis_prepared_26
+│   └── ldavis_prepared_26.html
 ├── requirements.txt
-└── sent_classifier
-    ├── database
-    │   ├── database.py
-    │   └── __init__.py
-    ├── data_scraping
-    │   └── trip_advisor_scraper.py
-    └── __init__.py
-
+├── sent_classifier
+│   ├── aspect_mapper
+│   │   ├── mapper.py
+│   │   └── sentiment_api_updater.py
+│   ├── database
+│   │   ├── database.py
+│   │   └── __init__.py
+│   ├── data_scraping
+│   │   └── trip_advisor_scraper.py
+│   └── __init__.py
+└── src
+    └── models
 ```
